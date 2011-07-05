@@ -47,6 +47,7 @@ class User(TromboneDocument):
     first_name = mongoengine.StringField(required=True)
     last_name = mongoengine.StringField(required=True)
     slug = mongoengine.StringField()
+    can_give_demerits = mongoengine.BooleanField(default=False)
     demerits = mongoengine.IntField(default=0)
 
     def save(self):

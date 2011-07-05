@@ -54,3 +54,11 @@ ul#top-scores {
     list-style-type: none;
     color:#9B7FA6;
 }
+
+div#todo {
+    position:absolute;
+    bottom:10px;
+    right:0;
+    color:white;
+    font-size:.85em;
+}

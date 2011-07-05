@@ -71,6 +71,9 @@ def demerit_create():
     if not from_user:
         return render_json(success=False, message="From-user not found")
 
+    if not from_user.can_give_demerits:
+        return render_json(success=False, message="You are not allowed to give demerits")
+
     to_user = User.objects(slug=to_user_slug).first()
     if not to_user:
         return render_json(success=False, message="To-user not found: %s" % to_user_slug)
