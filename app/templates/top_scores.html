@@ -1,0 +1,5 @@
+<ul id="top-scores">
+{% for user in users %}
+  <li>{{ user.first_name }} {{ user.last_name }}: {{ user.demerits }}</li>
+{% endfor %}
+</ul>

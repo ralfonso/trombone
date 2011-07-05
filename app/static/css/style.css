@@ -1,0 +1,56 @@
+body {
+    margin:0px;
+    background-color:#65526B;
+    font-family:'helvetica neue', helvetica;
+}
+
+header {
+    text-align:right;
+}
+
+div#form-container {
+    margin-top:10%;
+    margin-right:auto;
+    margin-left:auto;
+    text-align:center;
+}
+
+div#form-container span {
+    font-size:1.7em;
+    color:white;
+}
+
+input.api-key {
+    line-height:2em;
+    font-size:1.5em;
+}
+
+div#errors {
+    color:tomato;
+}
+
+select#to-user {
+    font-size:3em;
+}
+
+input#demerit {
+    font-size:3em;
+}
+
+div#message {
+    margin-top:10px;
+    color:white;
+    font-size:2em;
+}
+
+div#top-scores-container {
+    position:absolute;
+    top:0px;
+    left:0px;
+    display:inline;
+}   
+
+ul#top-scores {
+    list-style-type: none;
+    color:#9B7FA6;
+}

@@ -1,0 +1,14 @@
+<!doctype html>
+<html>
+<head>
+  <link rel="stylesheet" media="screen,print" href="/static/css/style.css"> 
+  <script src="/static/js/jquery-1.6.min.js"></script>
+  <script src="/static/js/script.js"></script>
+</head>
+<body data-controller="{{ controller }}" data-action="{{ action }}">
+  <header>
+    <img src="/static/images/sad_trombone_waveform.png" />
+  </header>
+  {% block body %}{% endblock %}
+</body>
+</html>

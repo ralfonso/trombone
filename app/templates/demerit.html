@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+{% block body %}
+<div id="top-scores-container">
+    
+</div>
+
+<div id="form-container">
+    <form action="/api/demerit/create" method="post">
+    <input type="hidden" name="api_key" value="{{ request.cookies['api_key'] }}" />
+    <select id="to-user" class="required" name="to_user">
+        <option />
+    </select>
+    <input type="submit" value="DEMERIT" id="demerit" />
+    </form>
+    <div id="message"></div>
+</div>
+{% endblock %}
