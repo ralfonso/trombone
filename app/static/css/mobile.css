@@ -1,0 +1,17 @@
+@media screen and (max-device-width: 480px) {
+
+ul#top-scores {
+    font-size:1.5em;
+}
+
+div#api-key-container label {
+    font-size:2em;
+}
+
+input#demerit {
+    display:block;
+    font-size:2em;
+    margin-top:3em;
+}
+
+}

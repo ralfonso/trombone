@@ -42,6 +42,21 @@ var TROMBONE = {
   ------------------------------------------------------------------*/
   index: {  	
   	init: function() {
+     $.ajax({
+        url:  '/api/user/list/top',
+        type: 'GET',
+        dataType: 'html',
+        success: function (data, status) {
+            $('#top-scores-container').html(data);
+        },
+        error: function (errors) {
+
+        },
+        complete: function () {
+
+        }
+     });
+
       function validation(form) {
     			var valid = true;
 

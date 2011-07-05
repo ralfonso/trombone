@@ -4,7 +4,7 @@ from flask import Blueprint, request, jsonify, make_response, g, render_template
 from models import User, Demerit, APIKey
 
 
-UNPROTECTED_METHODS = ('/api/login',)
+UNPROTECTED_METHODS = ('/api/login', '/api/user/list/top')
 
 blueprint = Blueprint('api', __name__)
 

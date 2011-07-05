@@ -9,14 +9,18 @@ header {
 }
 
 div#form-container {
-    margin-top:10%;
+    margin-top:5%;
     margin-right:auto;
-    margin-left:200px;
+    margin-left:400px;
     text-align:center;
 }
 
-div#form-container span {
-    font-size:1.7em;
+div#api-key-container {
+    text-align:left;
+}
+
+div#api-key-container label {
+    display:block;
     color:white;
 }
 
@@ -47,12 +51,12 @@ div#top-scores-container {
     position:absolute;
     top:0px;
     left:0px;
-    width:200px;
     margin-right:10px;
 }   
 
 ul#top-scores {
     list-style-type: none;
+    font-size:1.5em;
     color:#9B7FA6;
 }
 

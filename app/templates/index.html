@@ -1,9 +1,14 @@
 {% extends 'layout.html' %}
 {% block body %}
+<div id="top-scores-container">
+</div>
+
 <div id="form-container">
     <form action="/api/login" method="post">
-    <span>API Key:</span> 
-    <input type="password" class="api-key" name="api_key" />
+    <div id="api-key-container">
+        <label for="api_key">API Key:</label> 
+        <input type="password" class="api-key" name="api_key" />
+    </div>
     </form>
     <div id="errors"></div>
 </div>
