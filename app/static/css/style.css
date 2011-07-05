@@ -47,7 +47,7 @@ div#top-scores-container {
     position:absolute;
     top:0px;
     left:0px;
-    display:inline;
+    width:200px;
 }   
 
 ul#top-scores {
