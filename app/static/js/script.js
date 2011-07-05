@@ -144,21 +144,23 @@ var TROMBONE = {
         }
      });
 
-     $.ajax({
-        url:  '/api/user/list/top',
-        type: 'GET',
-        dataType: 'html',
-        data: form.serialize(),
-        success: function (data, status) {
-            $('#top-scores-container').html(data);
-        },
-        error: function (errors) {
+     function updateTopScores() {
+         $.ajax({
+            url:  '/api/user/list/top',
+            type: 'GET',
+            dataType: 'html',
+            data: form.serialize(),
+            success: function (data, status) {
+                $('#top-scores-container').html(data);
+            },
+            error: function (errors) {
 
-        },
-        complete: function () {
+            },
+            complete: function () {
 
-        }
-     });
+            }
+         });
+     }
       
       function validation(form) {
     		var valid = true;
@@ -192,6 +194,7 @@ var TROMBONE = {
                             var user = data.user;
                             var noun = user.demerits == 1 ? 'demerit' : 'demerits';
                             message.text(user.first_name + ' ' + user.last_name + ' now has ' + user.demerits + ' ' + noun + '.');
+                            updateTopScores();
   						}
   						else {
                             var message = $('#message');
@@ -207,6 +210,7 @@ var TROMBONE = {
   		}
 		
   		$('form').submit( submitForm );
+        updateTopScores();
     }
   },
 };

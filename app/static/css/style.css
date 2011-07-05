@@ -37,6 +37,10 @@ select#to-user {
     font-size:3em;
 }
 
+div#demerit-container {
+    text-align:left;
+}
+
 input#demerit {
     font-size:3em;
 }
