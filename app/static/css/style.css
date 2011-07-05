@@ -11,7 +11,7 @@ header {
 div#form-container {
     margin-top:10%;
     margin-right:auto;
-    margin-left:auto;
+    margin-left:200px;
     text-align:center;
 }
 
@@ -48,6 +48,7 @@ div#top-scores-container {
     top:0px;
     left:0px;
     width:200px;
+    margin-right:10px;
 }   
 
 ul#top-scores {
