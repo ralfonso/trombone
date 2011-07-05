@@ -33,10 +33,6 @@ div#errors {
     color:tomato;
 }
 
-select#to-user {
-    font-size:3em;
-}
-
 div#demerit-container {
     text-align:left;
 }
@@ -58,10 +54,20 @@ div#top-scores-container {
     margin-right:10px;
 }   
 
+div#demerit-header {
+    color:#8A9B0F;
+    margin-left:2px;
+    font-size:2em;
+    font-family:courier;
+}
+
 ul#top-scores {
     list-style-type: none;
     font-size:1.5em;
     color:#9B7FA6;
+    margin:0;
+    margin-left:10px;
+    padding:0;
 }
 
 ul#top-scores li a {
