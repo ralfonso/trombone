@@ -1,5 +1,13 @@
 <ul id="top-scores">
 {% for user in users %}
-  <li>{{ user.first_name }} {{ user.last_name }}: {{ user.demerits }}</li>
+  <li>
+    {% if link_users: %}
+    <a onclick="TROMBONE.demerit.updateDropdown('{{user.slug}}')">
+    {% endif %}
+    {{ user.first_name }} {{ user.last_name }}: {{ user.demerits }}
+    {% if link_users: %}
+    </a>
+    {% endif %}
+  </li>
 {% endfor %}
 </ul>

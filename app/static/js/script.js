@@ -112,7 +112,6 @@ var TROMBONE = {
     		$('form').submit( submitForm );
     }
 
-
   },
   
   /*- Sign Up Page Methods
@@ -211,6 +210,9 @@ var TROMBONE = {
 		
   		$('form').submit( submitForm );
         updateTopScores();
+    },
+    updateDropdown: function(slug) {
+        $('#to-user').val(slug);
     }
   },
 };

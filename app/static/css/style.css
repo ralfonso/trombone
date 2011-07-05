@@ -64,6 +64,12 @@ ul#top-scores {
     color:#9B7FA6;
 }
 
+ul#top-scores li a {
+    color:#9B7FA6;
+    text-decoration:none;
+    cursor:pointer;
+}
+
 div#todo {
     position:absolute;
     bottom:10px;
