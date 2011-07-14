@@ -45,6 +45,7 @@ var TROMBONE = {
      $.ajax({
         url:  '/api/user/list/top',
         type: 'GET',
+        data: {'as_html' : true},
         dataType: 'html',
         success: function (data, status) {
             $('#top-scores-container').html(data);
