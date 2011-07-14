@@ -2,6 +2,8 @@ body {
     margin:0px;
     background-color:#65526B;
     font-family:'helvetica neue', helvetica;
+    height:100%;
+    width:100%;
 }
 
 header {
@@ -25,9 +27,16 @@ div#api-key-container label {
 }
 
 input.api-key {
-    line-height:2em;
+    padding:0px;
     font-size:1.5em;
+    height:50px;
 }
+
+button {
+    font-size:2em;
+    background-color:#ccc;
+    border:6px #eee outset;
+}   
 
 div#errors {
     color:tomato;
