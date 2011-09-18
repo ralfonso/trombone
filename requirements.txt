@@ -1,7 +1,6 @@
 readline
 ipython
 python-dateutil
-simpleapi
 Flask
 SQLAlchemy
 Flask-SQLAlchemy
