@@ -1,20 +1,17 @@
 from flask import Flask, Blueprint, g, render_template
-from mongoengine import connect
-import models
+from flaskext.sqlalchemy import SQLAlchemy
+from database import init_db
 import api
 
 # create the little application object
 app = Flask(__name__)
 app.config.from_pyfile('trombone.cfg')
+app.db = SQLAlchemy()
+app = init_db(app)
 
-# connect to the database
-connection = connect(app.config['MONGODB_DB'], host=app.config['MONGODB_HOST'], port=app.config['MONGODB_PORT'])
+import models
 
 app.register_blueprint(api.blueprint, url_prefix='/api')
-
-@app.before_request
-def set_connection():
-    g.connection = connection
 
 @app.route('/')
 def index():
@@ -26,4 +23,4 @@ def demerit():
     
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0', port=5001)

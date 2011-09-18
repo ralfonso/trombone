@@ -1,4 +1,4 @@
-body {
+html,body {
     margin:0px;
     background-color:#65526B;
     font-family:'helvetica neue', helvetica;
@@ -11,13 +11,14 @@ header {
 }
 
 div#form-container {
-    margin-top:5%;
     margin-right:auto;
-    margin-left:400px;
+    margin-left:300px;
     text-align:center;
 }
 
 div#api-key-container {
+    width:200px;
+    position:relative;
     text-align:left;
 }
 
@@ -29,14 +30,9 @@ div#api-key-container label {
 input.api-key {
     padding:0px;
     font-size:1.5em;
-    height:50px;
+    height:40px;
+    width:200px;
 }
-
-button {
-    font-size:2em;
-    background-color:#ccc;
-    border:6px #eee outset;
-}   
 
 div#errors {
     color:tomato;
@@ -92,3 +88,19 @@ div#todo {
     color:white;
     font-size:.85em;
 }
+
+button#api-key-submit {
+    background:black url(../images/btn.png) no-repeat;
+    text-indent:-999em;
+    border: 0;
+    cursor: pointer;
+    height: 32px !important;
+    overflow: hidden;
+    position: absolute;
+    right: 3px;
+    text-indent: -999em;
+    top: 25px;
+    width: 32px;
+}
+
+div#api-key-container button:hover { background-position: 0 -32px; }

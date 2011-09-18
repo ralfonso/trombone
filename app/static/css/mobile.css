@@ -1,12 +1,32 @@
-@media screen and (max-device-width: 480px) {
+header {
+    display:none;
+}
 
 ul#top-scores {
-    font-size:1.5em;
+    font-size:.8em;
+}
+
+div#api-key-container,div#form-container {
+    position:absolute;
+    top:0;
+    left:5px;
+}
+
+div#form-container {
+    margin-right:auto;
+    margin-left:0;
+    text-align:center;
+}
+
+div#api-key-container {
 }
 
 div#api-key-container label {
-    font-size:2em;
 }
+
+div#top-scores-container {
+    margin-top:100px;
+}   
 
 input#demerit {
     display:block;
@@ -14,4 +34,8 @@ input#demerit {
     margin-top:3em;
 }
 
+div#message {
+    margin-top:10px;
+    color:white;
+    font-size:1em;
 }
