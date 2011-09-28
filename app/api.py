@@ -72,6 +72,7 @@ def user_get(user_slug):
 @blueprint.route('/demerit/create', methods=['POST'])
 def demerit_create():
     to_user_slug = request.form.get('to_user')
+    reason = request.form.get('reason', None)
 
     api_key = request.cookies.get('api_key', 'XXX')
 
@@ -88,15 +89,28 @@ def demerit_create():
         return render_json(success=False, message="To-user not found: %s" % to_user_slug)
 
     demerit = Demerit()
-    demerit.from_user = from_user
-    demerit.to_user = to_user
+    demerit.from_user_id = from_user.id
+    demerit.to_user_id = to_user.id
+    if reason:
+        demerit.reason = reason.strip()
     to_user.demerits += 1
     current_app.db.session.add(demerit)
     current_app.db.session.commit()
 
     return render_json(success=True, user=to_user.to_dict())
 
-@blueprint.route('/demerit/list')
-def demerit_list():
-    demerits = [d.as_dict() for d in Demerit.objects]
-    return render_json(success=True, demerits=demerits)
+ 
+@blueprint.route('/demerit/list/<string:slug>')
+def demerit_list(slug):
+    as_html = request.values.get('as_html', False)
+    user = User.query.filter(User.slug==slug).first()
+    if user:
+        demerits = [d.to_dict() for d in Demerit.query.filter(Demerit.to_user_id==user.id).order_by(Demerit.created_at.desc())]
+    else:
+        demerits = []
+
+    if as_html:
+        return render_template('demerits.html', demerits=demerits)
+    else:
+        return render_json(demerits=demerits)
+

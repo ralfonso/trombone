@@ -3,7 +3,7 @@
 {% for user in users %}
   <li>
     {% if link_users: %}
-    <a onclick="TROMBONE.demerit.updateDropdown('{{user.slug}}')">
+    <a data-user-slug="{{ user.slug }}">
     {% endif %}
     {{ user.first_name }} {{ user.last_name }}: {{ user.demerits }}
     {% if link_users: %}

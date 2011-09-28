@@ -1,4 +1,4 @@
-from flask import Flask, Blueprint, g, render_template
+from flask import Flask, Blueprint, g, render_template, request, redirect
 from flaskext.sqlalchemy import SQLAlchemy
 from database import init_db
 import api
@@ -15,6 +15,10 @@ app.register_blueprint(api.blueprint, url_prefix='/api')
 
 @app.route('/')
 def index():
+    api_key = request.cookies.get('api_key', 'XXX')
+    from_user = models.User.query.filter(models.User.api_key==api_key).first()
+    if from_user:
+        return redirect('/demerit')
     return render_template('index.html', controller='main', action='index')
 
 @app.route('/demerit')

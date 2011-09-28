@@ -80,8 +80,29 @@ event.listen(User.__mapper__, 'before_update', name_slugger)
 
 class Demerit(Base):
     __tablename__ = 'demerits'
+    __dict_ignore = ['__weakref__']
 
     id = Column(Integer, primary_key=True)
     created_at = Column(DateTime, default=func.now())
     from_user_id = Column(Integer, ForeignKey('users.id'))
     to_user_id = Column(Integer, ForeignKey('users.id'))
+    reason = Column(String(1000))
+
+    def to_dict(self):
+        def convert_datetime(value):
+            return value.strftime("%Y-%m-%d %H:%M:%S")
+
+        def convert_datetime_dateonly(value):
+            return value.strftime("%Y-%m-%d")
+
+        base_dict = {}
+        for prop_name in dir(Demerit):
+            if isdatadescriptor(getattr(Demerit, prop_name)) and prop_name not in Demerit.__dict_ignore and prop_name not in base_dict:
+                value = getattr(self, prop_name)
+                if isinstance(value, datetime.datetime):
+                    base_dict[prop_name + '_date'] = convert_datetime_dateonly(value)
+                    value = convert_datetime(value)
+
+                base_dict[prop_name] = value
+
+        return base_dict

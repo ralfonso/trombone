@@ -150,8 +150,9 @@ var TROMBONE = {
             type: 'GET',
             dataType: 'html',
             data: form.serialize(),
-            success: function (data, status) {
-                $('#top-scores-container').html(data);
+            success: function (response, status) {
+                $('#top-scores-container').html(response);
+                $('#top-scores li a').click(TROMBONE.demerit.selectUser);
             },
             error: function (errors) {
 
@@ -184,21 +185,27 @@ var TROMBONE = {
   			e.preventDefault();
 
   			if (validation(form)) {
+          var form_data = form.serialize();
+          if ($('#to-user').val() == '')
+            return;
+
   				$.ajax({
   					url: form.attr('action'),
   					type: 'POST',
-  					data: form.serialize(),
+  					data: form_data,
   					success: function (data, status) {
   						if ( data.success ) {
-                            var message = $('#message');
-                            var user = data.user;
-                            var noun = user.demerits == 1 ? 'demerit' : 'demerits';
-                            message.text(user.first_name + ' ' + user.last_name + ' now has ' + user.demerits + ' ' + noun + '.');
-                            updateTopScores();
+                  $('input[name=reason]').val('');
+                  var message = $('#message');
+                  var user = data.user;
+                  var noun = user.demerits == 1 ? 'demerit' : 'demerits';
+                  message.text(user.first_name + ' ' + user.last_name + ' now has ' + user.demerits + ' ' + noun + '.');
+                  updateTopScores();
+                  $('#reasons').load('/api/demerit/list/' + user.slug + '?as_html=true');
   						}
   						else {
-                            var message = $('#message');
-                            message.text(data.message);
+                  var message = $('#message');
+                  message.text(data.message);
   						}
   					},
   					error: function (error) {
@@ -212,8 +219,10 @@ var TROMBONE = {
   		$('form').submit( submitForm );
         updateTopScores();
     },
-    updateDropdown: function(slug) {
-        $('#to-user').val(slug);
+    selectUser: function(e) {
+      var slug = e.target.getAttribute('data-user-slug')
+      $('#to-user').val(slug);
+      $('#reasons').load('/api/demerit/list/' + slug + '?as_html=true');
     }
   },
 };

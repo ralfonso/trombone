@@ -104,3 +104,13 @@ button#api-key-submit {
 }
 
 div#api-key-container button:hover { background-position: 0 -32px; }
+
+ul.demerits {
+   list-style-type:none;  
+   margin:0;
+   padding:0;
+}
+
+ul.demerits li {
+    color:navajowhite;
+}
