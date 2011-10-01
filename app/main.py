@@ -17,7 +17,7 @@ app.register_blueprint(api.blueprint, url_prefix='/api')
 def index():
     api_key = request.cookies.get('api_key', 'XXX')
     from_user = models.User.query.filter(models.User.api_key==api_key).first()
-    if from_user:
+    if from_user and request.args.get('noredir', None) != '1':
         return redirect('/demerit')
     return render_template('index.html', controller='main', action='index')
 

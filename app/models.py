@@ -2,6 +2,7 @@ import re
 import datetime
 from inspect import isdatadescriptor
 from sqlalchemy import String, Integer, Column, Boolean, Sequence, ForeignKey, func, DateTime, event
+from sqlalchemy.orm import relationship
 
 from database import Base
 
@@ -49,7 +50,7 @@ def name_slugger(mapper, connection, target):
 
 class User(Base):
     __tablename__ = 'users'
-    __dict_ignore = ['__weakref__']
+    __dict_ignore = ['__weakref__', 'given_demerits', 'received_demerits']
 
     id = Column(Integer, primary_key=True)
     email = Column(String(200))
@@ -59,6 +60,8 @@ class User(Base):
     can_give_demerits = Column(Boolean)
     api_key = Column(String(100))
     demerits = Column(Integer, default=0)
+    given_demerits = relationship("Demerit", backref="from_user", primaryjoin="User.id==Demerit.from_user_id")
+    received_demerits = relationship("Demerit", backref="to_user", primaryjoin="User.id==Demerit.to_user_id")
 
     def to_dict(self):
         def convert_datetime(value):

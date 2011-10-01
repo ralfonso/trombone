@@ -114,3 +114,8 @@ ul.demerits {
 ul.demerits li {
     color:navajowhite;
 }
+
+div#reasons {
+    margin-top:20px;
+    width:300px;
+}

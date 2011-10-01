@@ -49,6 +49,7 @@ var TROMBONE = {
         dataType: 'html',
         success: function (data, status) {
             $('#top-scores-container').html(data);
+            $('#top-scores li a').click(TROMBONE.index.selectUser);
         },
         error: function (errors) {
 
@@ -111,6 +112,14 @@ var TROMBONE = {
     		}
     		
     		$('form').submit( submitForm );
+    },
+
+    selectUser: function(e) {
+      var slug = e.target.getAttribute('data-user-slug')
+      $('#top-scores li a').css('color', '');
+      $(e.target).css('color', '#F38630');
+      $('#to-user').val(slug);
+      $('#reasons').load('/api/demerit/list/' + slug + '?as_html=true');
     }
 
   },

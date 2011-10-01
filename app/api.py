@@ -46,7 +46,7 @@ def login():
 
 @blueprint.route('/user/list/top')
 def user_list_top():
-    link_users = request.values.get('link_users', False)
+    link_users = request.values.get('link_users', True)
     as_html = request.values.get('as_html', False)
     users = [u.to_dict() for u in User.query.order_by(User.demerits.desc())]
 
