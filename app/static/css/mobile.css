@@ -39,3 +39,10 @@ div#message {
     color:white;
     font-size:1em;
 }
+
+div#reasons {
+    margin-left:150px;
+    margin-top:40px;
+    font-size:10px;
+    width:240px;
+}
