@@ -34,10 +34,15 @@ input#demerit {
     margin-top:3em;
 }
 
+
 div#message {
-    margin-top:10px;
+    margin-top:5px;
     color:white;
     font-size:1em;
+}
+
+div#demerit-header {
+    margin-top:30px;
 }
 
 div#reasons {
@@ -45,4 +50,11 @@ div#reasons {
     margin-top:40px;
     font-size:10px;
     width:240px;
+}
+
+ul#top-scores li a {
+    color:#9B7FA6;
+    text-decoration:none;
+    cursor:pointer;
+    font-size:16px;
 }
