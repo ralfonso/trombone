@@ -62,6 +62,8 @@ class User(Base):
     demerits = Column(Integer, default=0)
     given_demerits = relationship("Demerit", backref="from_user", primaryjoin="User.id==Demerit.from_user_id")
     received_demerits = relationship("Demerit", backref="to_user", primaryjoin="User.id==Demerit.to_user_id")
+    #add a spot for excuses
+    #excuses = Column(Integer)
 
     def to_dict(self):
         def convert_datetime(value):
@@ -81,6 +83,7 @@ class User(Base):
 event.listen(User.__mapper__, 'before_insert', name_slugger)
 event.listen(User.__mapper__, 'before_update', name_slugger)
 
+
 class Demerit(Base):
     __tablename__ = 'demerits'
     __dict_ignore = ['__weakref__']
@@ -90,6 +93,8 @@ class Demerit(Base):
     from_user_id = Column(Integer, ForeignKey('users.id'))
     to_user_id = Column(Integer, ForeignKey('users.id'))
     reason = Column(String(1000))
+    has_excuse = Column(Boolean)
+
 
     def to_dict(self):
         def convert_datetime(value):
@@ -109,3 +114,22 @@ class Demerit(Base):
                 base_dict[prop_name] = value
 
         return base_dict
+
+# adding a table for excuses, bitch
+
+class Excuse(Base):
+	__tablename__ = 'excuses'
+	__dict_ignore__ = ['__weakref__']
+	
+	id = Column(Integer, primary_key=True)
+	excuse = Column(String(1000))
+	
+	def to_dict(self):
+		base_dict = {}
+		for prop_name in dir(Excuse):
+			if isdatadescriptor(gettattr(Excuse, prop_name)) and prop_name not in Excuse.__dict_ignore and prop_name not in base_dict:
+				value = getattr(self, prop_name)
+				
+			base_dict[prop_name] = value
+	
+		return base_dict

@@ -1,7 +1,7 @@
 from functools import wraps
 from datetime import datetime, timedelta
 from flask import Blueprint, request, jsonify, make_response, g, render_template, current_app
-from models import User, Demerit
+from models import User, Demerit, Excuse
 
 
 UNPROTECTED_METHODS = ('/api/login', '/api/user/list/top')
@@ -98,6 +98,17 @@ def demerit_create():
     current_app.db.session.commit()
 
     return render_json(success=True, user=to_user.to_dict())
+
+# Add a way to make and post excuses
+
+@blueprint.route('/excuse/create', methods=['POST'])
+def excuse_create():
+	excuse = request.form.get('excuse', None)
+	
+	excuse = Excuse()
+	current_app.db.session.add(excuse)
+	current_app.db.session.commit()
+		
 
  
 @blueprint.route('/demerit/list/<string:slug>')

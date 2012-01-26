@@ -194,7 +194,7 @@ var TROMBONE = {
   			e.preventDefault();
 
   			if (validation(form)) {
-          var form_data = form.serialize();
+            var form_data = form.serialize();
           if ($('#to-user').val() == '')
             return;
 
@@ -235,6 +235,11 @@ var TROMBONE = {
     }
   },
 };
+
+/*- EXCUSES
+----------------------------------------------------------------------*/
+
+
 
 /*- UTIL
 ----------------------------------------------------------------------*/
