@@ -1,26 +1,14 @@
-{% extends 'layout.html' %}
+{% extends 'demerit.html' %}
 {% block body %}
-<div id="top-scores-container">
+<form action="/api/excuse/create" method="post" id="excuses">
+<div id="excuse-container">
+	<div class="row">
+		Excuse: <input type="text" name="excuse" class="excuse" />
+	</div>
+	<div>
+		<button type="submit" id="excuse">Excuse</button>
+	</div>
 </div>
-
-<div id="form-container">
-    <form action="/api/excuse/create" method="post" id="excuses">
-    <div id="demerit-container">
-        <input type="hidden" name="api_key" value="{{ request.cookies['api_key'] }}" />
-        <input type="hidden" name="link_users" value="1" />
-        <input type="hidden" name="as_html" value="1" />
-        <select id="to-user" class="required" name="to_user">
-            <option />
-        </select>
-        <div class="row">
-          <input type="text" name="excuse" class="excuse" />
-        </div>
-        <div class="row">
-          <button type="submit" id="becuase">EXCUSE</button>
-        </div>
-        <div id="message"></div>
-        <div id="excuse"></div>
-    </div>
-    </form>
-</div>
+</form>
 {% endblock %}
+

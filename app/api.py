@@ -99,16 +99,24 @@ def demerit_create():
 
     return render_json(success=True, user=to_user.to_dict())
 
-# Add a way to make and post excuses
+# Add a way to make and post excuses -- I believe this stores the entered values, by who, to who
 
 @blueprint.route('/excuse/create', methods=['POST'])
 def excuse_create():
-	excuse = request.form.get('excuse', None)
+	to_user_slug = request.form.get('to_user')
+	excuse = request.form.get('excuses', None)
+	
+	to_user = User.query.filter(User.slug==to_user_slug).first()
 	
 	excuse = Excuse()
+	excuse.from_user_id = from_user.id
+	excuse.to_user_id = to_user.id
+	if excuse:
+		excuse.excuse = excuse.strip()
 	current_app.db.session.add(excuse)
 	current_app.db.session.commit()
 		
+# add a way to list out the excuses
 
  
 @blueprint.route('/demerit/list/<string:slug>')

@@ -122,6 +122,8 @@ class Excuse(Base):
 	__dict_ignore__ = ['__weakref__']
 	
 	id = Column(Integer, primary_key=True)
+	from_user_id = Column(Integer, ForeignKey('users.id'))
+ 	to_user_id = Column(Integer, ForeignKey('users.id'))
 	excuse = Column(String(1000))
 	
 	def to_dict(self):
