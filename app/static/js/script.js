@@ -234,10 +234,82 @@ var TROMBONE = {
       $('#reasons').load('/api/demerit/list/' + slug + '?as_html=true');
     }
   },
-};
+
 
 /*- EXCUSES
 ----------------------------------------------------------------------*/
+  excuse: {
+	init: function () {
+	  var to_user = $('#to-user');
+      var form = $('form');
+
+      $.ajax({
+        url:  '/api/user/list',
+        type: 'GET',
+        dataType: 'json',
+        data: form.serialize(),
+        success: function (data, status) {
+            $.each(data.users, function(index, user) {
+                console.log(user);
+                var option = $('<option/>');
+                option.attr('value', user.slug);
+                option.text(user.first_name + ' ' + user.last_name);
+                to_user.append(option);
+            });
+        },
+        error: function (errors) {
+
+        },
+        complete: function () {
+
+        }
+      }); /* end of ajax */	
+      function submitForm (e) {
+    	  var form = $(this);
+
+  			e.preventDefault();
+
+  			if (validation(form)) {
+            var form_data = form.serialize();
+          if ($('#to-user').val() == '')
+            return;
+
+  				$.ajax({
+  					url: form.attr('action'),
+  					type: 'POST',
+  					data: form_data,
+  					success: function (data, status) {
+  						if ( data.success ) {
+                  $('input[name=excuse]').val('');
+                  $('#excuses').load('/api/excuse/list/' + user.slug + '?as_html=true');
+  				  						}
+  					},
+  					error: function (error) {
+  					},
+  					complete: function () {
+  					}
+  				});
+  			}
+  		}
+		
+  		$('form').submit( submitForm );
+        updateTopScores();
+    }, /* end of init for excuse */
+    
+    selectUser: function(e) {
+      var slug = e.target.getAttribute('data-user-slug')
+      $('#to-user').val(slug);
+      $('#excuses').load('/api/excuse/list/' + slug + '?as_html=true');
+    }	
+  }, /* end of excuse */
+  
+  /*- SHOW OR HIDE EXCUSE FROM DEMERIT
+  --------------------------------------------------------------------*/
+  
+  
+  
+}; /* end of TROMBONE */
+
 
 
 

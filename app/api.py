@@ -117,8 +117,17 @@ def excuse_create():
 	current_app.db.session.commit()
 		
 # add a way to list out the excuses
-
+@blueprint.route('/excuse/list/<string:slug>')
+def excuse_list(slug):
+	as_html = request.values.get('as_html', False)
+	#if demerit:
+	#	has_excuse = []
  
+ 	if as_html:
+ 		return render_template('excuses.html', excuses=excuses)
+ 	else:
+ 		return render_json(excuses=excuses)
+ 	
 @blueprint.route('/demerit/list/<string:slug>')
 def demerit_list(slug):
     as_html = request.values.get('as_html', False)
