@@ -103,31 +103,23 @@ def demerit_create():
 
 @blueprint.route('/excuse/create', methods=['POST'])
 def excuse_create():
-	to_user_slug = request.form.get('to_user')
 	excuse = request.form.get('excuses', None)
 	
 	to_user = User.query.filter(User.slug==to_user_slug).first()
 	
 	excuse = Excuse()
-	excuse.from_user_id = from_user.id
-	excuse.to_user_id = to_user.id
-	if excuse:
-		excuse.excuse = excuse.strip()
+	demerit = Demerit()
+	f = demerit.has_excuse=False
+	t = demerit.has_excuse=True
+	excuse.to_demerit_id = demerit.id
+	if f:
+		return render_template('excuse.html', excuse=excuse)
+	else:
+	    return render_template('excuses.html', excuses=excuses)
+	    
 	current_app.db.session.add(excuse)
 	current_app.db.session.commit()
-		
-# add a way to list out the excuses
-@blueprint.route('/excuse/list/<string:slug>')
-def excuse_list(slug):
-	as_html = request.values.get('as_html', False)
-	#if demerit:
-	#	has_excuse = []
- 
- 	if as_html:
- 		return render_template('excuses.html', excuses=excuses)
- 	else:
- 		return render_json(excuses=excuses)
- 	
+
 @blueprint.route('/demerit/list/<string:slug>')
 def demerit_list(slug):
     as_html = request.values.get('as_html', False)
@@ -141,4 +133,19 @@ def demerit_list(slug):
         return render_template('demerits.html', demerits=demerits)
     else:
         return render_json(demerits=demerits)
-
+		
+# add a way to list out the excuses
+@blueprint.route('/excuse/list/<string:id>')
+def excuse_list(id):
+	as_html = request.values.get('as_html', False)
+	demerit = Demerit.query.filter(Demerit.id==id).first()
+	if demerit:
+		excuses = [e.to_dict() for e in Excuse.query.filter(Excuse.to_demerit_id==demerit.id)]
+	else:
+		excuses = []
+ 
+ 	if as_html:
+ 		return render_template('excuses.html', excuses=excuses)
+ 	else:
+ 		return render_json(excuses=excuses)
+ 	
