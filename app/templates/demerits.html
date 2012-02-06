@@ -1,7 +1,7 @@
 <ul class="demerits">
 {% for demerit in demerits -%}
-  <li class="demerit" onclick="TROMBONE.demerit.openDemeritForm({{demerit.id}})">{{ demerit.created_at_date }} - {{ demerit.reason }}</li>                  
-  <ul id="excuses"></ul>
+  <li class="demerit" onclick="TROMBONE.demerit.openDemeritForm({{demerit.id}})">{{ demerit.created_at_date }} - {{ demerit.reason }}</li>
+  <ul class="excuses"></ul>
 {% endfor -%}
 </ul>	
 

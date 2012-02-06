@@ -105,8 +105,6 @@ def demerit_create():
 def excuse_create():
 	excuse = request.form.get('excuses', None)
 	
-	to_user = User.query.filter(User.slug==to_user_slug).first()
-	
 	excuse = Excuse()
 	demerit = Demerit()
 	f = demerit.has_excuse=False
