@@ -108,7 +108,6 @@ def excuse_create():
 	excuse = Excuse()
 	demerit = Demerit()
 	f = demerit.has_excuse=False
-	t = demerit.has_excuse=True
 	excuse.to_demerit_id = demerit.id
 	if f:
 		return render_template('excuse.html', excuse=excuse)

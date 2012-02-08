@@ -245,6 +245,41 @@ var TROMBONE = {
 ----------------------------------------------------------------------*/
   excuse: {
 	init: function () {
+      var form = $('form');
+      
+      function submitForm(e) {
+        var form = $(this);
+        var noExcuse = /* find how to access Demerit.has_excuse */
+            
+            e.preventDefault();
+            
+            if noExcuse {
+            var form_data = form.serialize();
+            /* more shit needs to go here */
+                
+                $.ajax({
+                    url: form.attr('action'),
+                    type: 'POST',
+                    data: form_data,
+                    success: function(/* two values go here */),
+                        if ( data.success ) {
+                            $('input[name=excuse]').val('');
+                            /* probably more stuff needs to happen here */
+                            $('#excuses').load('/api/excuse/list/' + demerit_id + '?as_html=true');
+                        }
+                        else {
+                            /* else what? */
+                        },
+                        error: function (error) {
+                        },
+                        complete: function (){
+                        }
+                });
+            }
+            
+      }
+      
+     $('form').submit( submitForm );
 	  
     } /* end of init */	
   }, /* end of excuse */

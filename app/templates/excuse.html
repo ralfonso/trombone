@@ -1,14 +1,16 @@
 {% extends 'layout.html' %}
 {% block body %}
-<form action="/api/excuse/create" method="post" id="excuses">
-<div id="excuse-container">
-	<div class="row">
-		Excuse: <input type="text" name="excuse" class="excuse" />
+<div id="form-container-2">
+	<form action="/api/excuse/create" method="post" id="excuse">
+	<div id="excuse-container">
+		<div class="row">
+			<input type="text" name="excuse" class="excuse" />
+		</div>
+		<div class="row">
+			<button type="submit" id="excuse">EXCUSE</button>
+		</div>
+		<div id="excuses"></div>
 	</div>
-	<div>
-		<button type="submit" id="excuse">Excuse</button>
-	</div>
+	</form>
 </div>
-</form>
 {% endblock %}
-
