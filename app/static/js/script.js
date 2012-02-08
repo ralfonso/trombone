@@ -236,7 +236,7 @@ var TROMBONE = {
     /* when click on demerit, show excuse or lack of */
   	openDemeritForm: function(demerit_id) {
    	  console.log('poopie pies');
-   	  $('.excuses').load('/api/excuse/list/' + demerit_id + '?as_html=true');
+   	  $('.excuses').load('/api/excuse/create/' + demerit_id + '?as_html=true');
    	}
   },
 
@@ -245,53 +245,35 @@ var TROMBONE = {
 ----------------------------------------------------------------------*/
   excuse: {
 	init: function () {
-      var form = $('form');
+		var form = $('form');
+		var form_data = form.serialize();
       
       function submitForm(e) {
-        var form = $(this);
-        var noExcuse = /* find how to access Demerit.has_excuse */
-            
-            e.preventDefault();
-            
-            if noExcuse {
-            var form_data = form.serialize();
-            /* more shit needs to go here */
-                
-                $.ajax({
-                    url: form.attr('action'),
-                    type: 'POST',
-                    data: form_data,
-                    success: function(/* two values go here */),
-                        if ( data.success ) {
-                            $('input[name=excuse]').val('');
-                            /* probably more stuff needs to happen here */
-                            $('#excuses').load('/api/excuse/list/' + demerit_id + '?as_html=true');
-                        }
-                        else {
-                            /* else what? */
-                        },
-                        error: function (error) {
-                        },
-                        complete: function (){
-                        }
-                });
-            }
-            
-      }
-      
-     $('form').submit( submitForm );
-	  
+		$.ajax({
+			url: form.attr('action'),
+			type: 'POST',
+			data: form_data,
+			success: function (data, status) {
+				if ( data.success ) {
+					$('li.demerits').click(function(){
+						$('li.excuses').load('/api/excuse/list/' + demerit_id + '?as_html=true');
+					});
+				}
+				else {
+					/* do some other stuff */
+				}
+			},
+			error: function (error) {
+			},
+			complete: function () {
+			}
+		});
+      } 
+      $('form').submit( submitForm );	  
     } /* end of init */	
-  }, /* end of excuse */
-  
-  /*- SHOW OR HIDE EXCUSE FROM DEMERIT
-  --------------------------------------------------------------------*/
-  
-  
+  } /* end of excuse */
   
 }; /* end of TROMBONE */
-
-
 
 
 /*- UTIL
