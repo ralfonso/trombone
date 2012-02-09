@@ -105,7 +105,7 @@ button#api-key-submit {
 
 div#api-key-container button:hover { background-position: 0 -32px; }
 
-ul.demerits {
+ul.demerits, ul.excuses {
    list-style-type:none;  
    margin:0;
    padding:0;
@@ -113,6 +113,13 @@ ul.demerits {
 
 ul.demerits li {
     color:navajowhite;
+    cursor: pointer;
+}
+
+ul.excuses li {
+	color: lavenderblush;
+	font-style: italic;
+	padding: 5px 0;	
 }
 
 div#reasons {

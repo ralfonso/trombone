@@ -233,17 +233,14 @@ var TROMBONE = {
       $('#to-user').val(slug);
       $('#reasons').load('/api/demerit/list/' + slug + '?as_html=true');
     },
-    /* when click on demerit, show excuse or lack of */
+    
+    /* when click on demerit, show excuse or ze form */
   	openDemeritForm: function(demerit_id) {
    	  console.log('poopie pies');
    	  
-   	  /*if {*/
-   	  	$('#demerit-' + demerit_id).load('/api/excuse/list/' + demerit_id + '?as_html=true');
-   	  	$('#demerit-' + demerit_id).toggle();
-   	 /* }
-   	  else { 
-   	  	$('.excuses').load('/api/excuse/create');
-   	  }*/
+   	  $('#demerit-' + demerit_id).load('/api/excuse/list/' + demerit_id + '?as_html=true');
+   	  $('#demerit-' + demerit_id).toggle();
+  
    	}
    	
   },
@@ -251,7 +248,7 @@ var TROMBONE = {
 
 /*- EXCUSES
 ----------------------------------------------------------------------*/
-/*  excuse: {
+  excuse: {
 	init: function () {
 		var form = $('form');
 		var form_data = form.serialize();
@@ -263,13 +260,11 @@ var TROMBONE = {
 			data: form_data,
 			success: function (data, status) {
 				if ( data.success ) {
-					/*$('li.demerits').click(function(){
-						$('li.excuses').load('/api/excuse/list/'); 
-						not sure really what to put here yet 
-					});
+					openDemeritForm(demerit_id)
 				}
 				else { 
-					/* do some other stuff 
+                  var message = $('#message');
+                  message.text(data.message);
 				}
 			},
 			error: function (error) {
@@ -279,9 +274,9 @@ var TROMBONE = {
 		});
       } 
       $('form').submit( submitForm );	  
-    } /* end of init 
-  } /* end of excuse */
-  
+    } 
+  } 
+
 }; /* end of TROMBONE */ 
 
 
