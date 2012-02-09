@@ -103,19 +103,20 @@ def demerit_create():
 
 @blueprint.route('/excuse/create', methods=['POST'])
 def excuse_create():
-	excuse = request.form.get('excuses', None)
+    excuses = request.form.get('excuses', None)
+
+    excuse = Excuse()
+    demerit = Demerit.query.filter(Demerit.id==id).first()
+    excuse.to_demerit_id = demerit.id
+    has_excuse = demerit.has_excuse
 	
-	excuse = Excuse()
-	demerit = Demerit()
-	f = demerit.has_excuse=False
-	excuse.to_demerit_id = demerit.id
-	if f:
-		return render_template('excuse.html', excuse=excuse)
-	else:
-	    return render_template('excuses.html', excuses=excuses)
+    if has_excuse:
+        return render_template('excuse.html', excuse=excuse)
+    else:
+        return render_template('excuses.html', excuses=excuses)
 	    
-	current_app.db.session.add(excuse)
-	current_app.db.session.commit()
+    current_app.db.session.add(excuse)
+    current_app.db.session.commit()
 
 @blueprint.route('/demerit/list/<string:slug>')
 def demerit_list(slug):
