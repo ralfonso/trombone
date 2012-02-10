@@ -236,11 +236,8 @@ var TROMBONE = {
     
     /* when click on demerit, show excuse or ze form */
   	openDemeritForm: function(demerit_id) {
-   	  console.log('poopie pies');
-   	  
    	  $('#demerit-' + demerit_id).load('/api/excuse/list/' + demerit_id + '?as_html=true');
    	  $('#demerit-' + demerit_id).toggle();
-  
    	}
    	
   },
