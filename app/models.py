@@ -51,7 +51,7 @@ def name_slugger(mapper, connection, target):
 class User(Base):
     __tablename__ = 'users'
     __dict_ignore = ['__weakref__', 'given_demerits', 'received_demerits']
-
+    
     id = Column(Integer, primary_key=True)
     email = Column(String(200))
     first_name = Column(String(100))
@@ -63,11 +63,11 @@ class User(Base):
     #do the same for excuses?
     given_demerits = relationship("Demerit", backref="from_user", primaryjoin="User.id==Demerit.from_user_id")
     received_demerits = relationship("Demerit", backref="to_user", primaryjoin="User.id==Demerit.to_user_id")
-
+    
     def to_dict(self):
         def convert_datetime(value):
             return value.strftime("%Y-%m-%d %H:%M:%S")
-
+        
         base_dict = {}
         for prop_name in dir(User):
             if isdatadescriptor(getattr(User, prop_name)) and prop_name not in User.__dict_ignore and prop_name not in base_dict:

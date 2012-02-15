@@ -111,6 +111,10 @@ ul.demerits, ul.excuses {
    padding:0;
 }
 
+ul.excuses {
+	display:block;	
+}
+
 ul.demerits li {
     color:navajowhite;
     cursor: pointer;

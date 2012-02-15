@@ -236,8 +236,13 @@ var TROMBONE = {
     
     /* when click on demerit, show excuse or ze form */
   	openDemeritForm: function(demerit_id) {
-   	  $('#demerit-' + demerit_id).load('/api/excuse/list/' + demerit_id + '?as_html=true');
-   	  $('#demerit-' + demerit_id).toggle();
+  		
+   	  $('#demerit-' + demerit_id).load('/api/excuse/list/' + demerit_id + '?as_html=true'/*, function (){ toggle }*/);
+   	  /*$('#demerit-' + demerit_id).toggle(); /*
+   	 	need callback to toggle show/hide
+   	 */
+   	 
+   	 
    	}
    	
   },
@@ -247,8 +252,8 @@ var TROMBONE = {
 ----------------------------------------------------------------------*/
   excuse: {
 	init: function () {
-		var form = $('form');
-		var form_data = form.serialize();
+	  var form = $('form');
+	  var form_data = form.serialize();
       
       function submitForm(e) {
 		$.ajax({

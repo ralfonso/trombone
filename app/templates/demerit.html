@@ -4,8 +4,8 @@
 </div>
 
 <div id="form-container">
-    <form action="/api/demerit/create" method="post" id="reason">
     <div id="demerit-container">
+    <form action="/api/demerit/create" method="post" id="reason">
         <input type="hidden" name="api_key" value="{{ request.cookies['api_key'] }}" />
         <input type="hidden" name="link_users" value="1" />
         <input type="hidden" name="as_html" value="1" />
@@ -18,9 +18,10 @@
         <div class="row">
           <button type="submit" id="demerit">DEMERIT</button>
         </div>
+    </form>
+
         <div id="message"></div>
         <div id="reasons"></div>
-    </div>
-    </form>
+	</div>
 </div>
 {% endblock %}

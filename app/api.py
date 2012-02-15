@@ -99,22 +99,41 @@ def demerit_create():
 
     return render_json(success=True, user=to_user.to_dict())
 
-# Add a way to make and post excuses -- I believe this stores the entered values, by who, to who
-
 @blueprint.route('/excuse/create', methods=['POST'])
 def excuse_create():
     excuse = request.form.get('excuse', None)
-
-    excuses = Excuse()
-    excuse.to_demerit_id = demerit.id
-    demerit = Demerit()
+    demerit_id = request.form.get('demerit_id', True)
+    
+    demerit = Demerit.query.filter(Demerit.id==demerit_id).first()
+    #to_demerit = Excuse.query.filter(Excuse.to_demerit_id==demerit_id).first()
+        #### outputs an error and to_demerit is NONE
+    #to_demerit = Excuse.query.filter(Demerit.id==Excuse.to_demerit_id).first()
+        #### outputs the object and first excuse in the list
+    #to_demerit = Excuse.query.filter(Excuse.to_demerit_id==Demerit.id).first()
+        #### outpits excuse: then all the excuse table info for the first excuse 
+    #to_demerit = Demerit.query.filter(Demerit.id==Excuse.to_demerit_id).first()
+        #### outputs excuse: then all the demerit table info
+    
     has_excuse = demerit.has_excuse
-	
-	    
+   
+    print "************************"
+    print demerit
+    excuses = Excuse()
+    demerits = Demerit()
+    excuses.to_demerit_id = demerits.id
+    demerit_id = demerit.id
+    
+    if excuse:
+        excuses.excuse = excuse.strip() 
+
+    print "************************"
+    print excuse 
+            
     current_app.db.session.add(excuses)
     current_app.db.session.commit()
 
-
+    return render_json(success=True, excuse=demerit_id.to_dict())
+    
 @blueprint.route('/demerit/list/<string:slug>')
 def demerit_list(slug):
     as_html = request.values.get('as_html', False)
@@ -129,7 +148,6 @@ def demerit_list(slug):
     else:
         return render_json(demerits=demerits)
 		
-# add a way to list out the excuses
 @blueprint.route('/excuse/list/<string:id>')
 def excuse_list(id):
     as_html = request.values.get('as_html', False)
@@ -139,17 +157,9 @@ def excuse_list(id):
         excuses = [e.to_dict() for e in Excuse.query.filter(Excuse.to_demerit_id==demerit.id)]
     else:
         excuses = []
- 
-    #if as_html:
-     #   return render_template('excuses.html', excuses=excuses)
-    #else:
- 	 #   return render_json(excuses=excuses)
 
     if has_excuse:
         return render_template('excuses.html', excuses=excuses)
     else:
-        return render_template('excuse.html', excuses=excuses)
+        return render_template('excuse.html', excuses=excuses, demerit=demerit)
 	    
-    current_app.db.session.add(excuses)
-    current_app.db.session.commit()
- 	
