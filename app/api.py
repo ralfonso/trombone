@@ -99,55 +99,51 @@ def demerit_create():
 
     return render_json(success=True, user=to_user.to_dict())
 
+    @blueprint.route('/demerit/list/<string:slug>')
+    def demerit_list(slug):
+        as_html = request.values.get('as_html', False)
+        user = User.query.filter(User.slug==slug).first()
+        if user:
+            demerits = [d.to_dict() for d in Demerit.query.filter(Demerit.to_user_id==user.id).order_by(Demerit.created_at.desc())]
+        else:
+            demerits = []
+
+        if as_html:
+            return render_template('demerits.html', demerits=demerits)
+        else:
+            return render_json(demerits=demerits)
+
 @blueprint.route('/excuse/create', methods=['POST'])
 def excuse_create():
     excuse = request.form.get('excuse', None)
     demerit_id = request.form.get('demerit_id', True)
-    
-    demerit = Demerit.query.filter(Demerit.id==demerit_id).first()
-    #to_demerit = Excuse.query.filter(Excuse.to_demerit_id==demerit_id).first()
-        #### outputs an error and to_demerit is NONE
-    #to_demerit = Excuse.query.filter(Demerit.id==Excuse.to_demerit_id).first()
-        #### outputs the object and first excuse in the list
-    #to_demerit = Excuse.query.filter(Excuse.to_demerit_id==Demerit.id).first()
-        #### outpits excuse: then all the excuse table info for the first excuse 
-    #to_demerit = Demerit.query.filter(Demerit.id==Excuse.to_demerit_id).first()
-        #### outputs excuse: then all the demerit table info
-    
-    has_excuse = demerit.has_excuse
-   
-    print "************************"
-    print demerit
-    excuses = Excuse()
-    demerits = Demerit()
-    excuses.to_demerit_id = demerits.id
-    demerit_id = demerit.id
-    
-    if excuse:
-        excuses.excuse = excuse.strip() 
 
-    print "************************"
-    print excuse 
-            
-    current_app.db.session.add(excuses)
+   	#demerit = Demerit.query.filter(Demerit.id==demerit_id).first()
+    #demerit = Demerit.
+    #
+    #Use the demerit_id as the new Excuses reference
+    
+    #Create a new Excuse
+    newExcuse = Excuse()
+    #Set the to_demerit_id to the demerit id that we are working on
+    newExcuse.to_demerit_id = demerit_id
+    #assign the excuse text that the user just submitted
+    newExcuse.excuse = excuse
+    #Add that to the commit (save it)
+    current_app.db.session.add(newExcuse)
+    
+    #now set the demerit property has_excuse to true
+    to_demerit = Demerit.query.filter(Demerit.id==demerit_id).first()
+    to_demerit.has_excuse = True
+    #Add that to the commit (save it)
+    current_app.db.session.add(to_demerit)
+
+    #commit that shit
     current_app.db.session.commit()
+    # print excuse 
+    return render_json(success=True, excuse=to_demerit.to_dict())
 
-    return render_json(success=True, excuse=demerit_id.to_dict())
-    
-@blueprint.route('/demerit/list/<string:slug>')
-def demerit_list(slug):
-    as_html = request.values.get('as_html', False)
-    user = User.query.filter(User.slug==slug).first()
-    if user:
-        demerits = [d.to_dict() for d in Demerit.query.filter(Demerit.to_user_id==user.id).order_by(Demerit.created_at.desc())]
-    else:
-        demerits = []
 
-    if as_html:
-        return render_template('demerits.html', demerits=demerits)
-    else:
-        return render_json(demerits=demerits)
-		
 @blueprint.route('/excuse/list/<string:id>')
 def excuse_list(id):
     as_html = request.values.get('as_html', False)

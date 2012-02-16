@@ -60,7 +60,6 @@ class User(Base):
     can_give_demerits = Column(Boolean)
     api_key = Column(String(100))
     demerits = Column(Integer, default=0)
-    #do the same for excuses?
     given_demerits = relationship("Demerit", backref="from_user", primaryjoin="User.id==Demerit.from_user_id")
     received_demerits = relationship("Demerit", backref="to_user", primaryjoin="User.id==Demerit.to_user_id")
     
@@ -122,17 +121,14 @@ class Excuse(Base):
     id = Column(Integer, primary_key=True)
     to_demerit_id = Column(Integer, ForeignKey('demerits.id'))
     excuse = Column(String(1000))
-	
-    def to_dict(self):
 
+    def to_dict(self):
         base_dict = {}
-	for prop_name in dir(Excuse):
+        for prop_name in dir(Excuse):
             if isdatadescriptor(getattr(Excuse, prop_name)) and prop_name not in Excuse.__dict_ignore and prop_name not in base_dict:
-                #print 'ok: ' + prop_name
+                print 'ok: ' + prop_name
                 value = getattr(self, prop_name)
-                #print 'setting value %s: %s' % (prop_name, value)				
+                print 'setting value %s: %s' % (prop_name, value)				
                 base_dict[prop_name] = value
-                #print 'sup dog'
-                #print base_dict
-	
+        
         return base_dict

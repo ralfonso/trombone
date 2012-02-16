@@ -237,12 +237,7 @@ var TROMBONE = {
     /* when click on demerit, show excuse or ze form */
   	openDemeritForm: function(demerit_id) {
   		
-   	  $('#demerit-' + demerit_id).load('/api/excuse/list/' + demerit_id + '?as_html=true'/*, function (){ toggle }*/);
-   	  /*$('#demerit-' + demerit_id).toggle(); /*
-   	 	need callback to toggle show/hide
-   	 */
-   	 
-   	 
+   	  $('#demerit-' + demerit_id).load('/api/excuse/list/' + demerit_id + '?as_html=true'/*, function (){ toggle }*/);   	 
    	}
    	
   },
@@ -276,7 +271,10 @@ var TROMBONE = {
 		});
       } 
       $('form').submit( submitForm );	  
-    } 
+    }, 
+    addExcuse: function(e){
+      $('#demerit-' + demerit_id).load('/api/excuse/list/' + demerit_id + '?as_html=true');
+    }
   } 
 
 }; /* end of TROMBONE */ 
