@@ -129,7 +129,9 @@ var TROMBONE = {
   demerit: {
     init: function(){
       var to_user = $('#to-user');
-      var form = $('form');
+      var form = $('#reason');
+      
+      console.log(form);
 
       $.ajax({
         url:  '/api/user/list',
@@ -176,7 +178,7 @@ var TROMBONE = {
     		var valid = true;
 
   			// check if required fields are blank
-  			$(form).find('input.required').each( function (i, el) {
+  			$(form).find('select.required').each( function (i, el) {
   				if (!el.value) {
 						valid = false;
 						$(el).addClass('error');
@@ -225,7 +227,7 @@ var TROMBONE = {
   			}
   		}
 		
-  		$('form').submit( submitForm );
+  		$('#reason').submit( submitForm );
         updateTopScores();
     },
     selectUser: function(e) {
@@ -238,7 +240,7 @@ var TROMBONE = {
   	openDemeritForm: function(demerit_id) {
   		
    	  $('#demerit-' + demerit_id).load('/api/excuse/list/' + demerit_id + '?as_html=true'/*, function (){ toggle }*/);   	 
-   	}
+   }
    	
   },
 
@@ -246,36 +248,53 @@ var TROMBONE = {
 /*- EXCUSES
 ----------------------------------------------------------------------*/
   excuse: {
-	init: function () {
-	  var form = $('form');
-	  var form_data = form.serialize();
+    init: function () {
+      var form = $('#excuses');
+	  
+	  console.log(form);
+	  
+        function validation(form) {
+            var valid = true;
+
+  		    return valid;
+        }
       
-      function submitForm(e) {
-		$.ajax({
-			url: form.attr('action'),
-			type: 'POST',
-			data: form_data,
-			success: function (data, status) {
-				if ( data.success ) {
-					openDemeritForm(demerit_id)
-				}
-				else { 
-                  var message = $('#message');
-                  message.text(data.message);
-				}
-			},
-			error: function (error) {
-			},
-			complete: function () {
-			}
-		});
-      } 
-      $('form').submit( submitForm );	  
-    }, 
-    addExcuse: function(e){
-      $('#demerit-' + demerit_id).load('/api/excuse/list/' + demerit_id + '?as_html=true');
-    }
-  } 
+        function submitForm(e) {  
+          var form = $(this); 
+                
+          e.preventDefault();
+        
+            if (validation(form)) {
+                var form_data = form.serialize();
+            return;
+
+            $.ajax({
+                url: form.attr('action'),
+                type: 'POST',
+                data: form_data,
+                success: function (data, status) {
+                    if ( data.success ) {
+                        $('input[name=excuse]').val('');
+                        $('#excuses').load('/api/excuse/list/' + demerit_id + '?as_html=true');
+				    }
+				    else { 
+                        var message = $('#message');
+                        message.text(data.message);
+				    }
+			     },
+			     error: function (error) {
+			     },
+			     complete: function () {
+			     }
+            });
+            } 
+        }
+        $('#excuses').submit( submitForm );	  
+    } 
+    //addExcuse: function(e) {
+     // $('#excuses').load('/api/excuse/list/' + demerit_id + '?as_html=true');
+    //}
+  }
 
 }; /* end of TROMBONE */ 
 

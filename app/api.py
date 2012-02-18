@@ -99,19 +99,19 @@ def demerit_create():
 
     return render_json(success=True, user=to_user.to_dict())
 
-    @blueprint.route('/demerit/list/<string:slug>')
-    def demerit_list(slug):
-        as_html = request.values.get('as_html', False)
-        user = User.query.filter(User.slug==slug).first()
-        if user:
-            demerits = [d.to_dict() for d in Demerit.query.filter(Demerit.to_user_id==user.id).order_by(Demerit.created_at.desc())]
-        else:
-            demerits = []
+@blueprint.route('/demerit/list/<string:slug>')
+def demerit_list(slug):
+    as_html = request.values.get('as_html', False)
+    user = User.query.filter(User.slug==slug).first()
+    if user:
+        demerits = [d.to_dict() for d in Demerit.query.filter(Demerit.to_user_id==user.id).order_by(Demerit.created_at.desc())]
+    else:
+        demerits = []
 
-        if as_html:
-            return render_template('demerits.html', demerits=demerits)
-        else:
-            return render_json(demerits=demerits)
+    if as_html:
+        return render_template('demerits.html', demerits=demerits)
+    else:
+        return render_json(demerits=demerits)
 
 @blueprint.route('/excuse/create', methods=['POST'])
 def excuse_create():
@@ -149,10 +149,14 @@ def excuse_list(id):
     as_html = request.values.get('as_html', False)
     demerit = Demerit.query.filter(Demerit.id==id).first()
     has_excuse = demerit.has_excuse
+    print "******************()(*)(*)*"
+    print has_excuse
     if demerit:
         excuses = [e.to_dict() for e in Excuse.query.filter(Excuse.to_demerit_id==demerit.id)]
     else:
         excuses = []
+    print "**********@*@*@*@**********"
+    print excuses
 
     if has_excuse:
         return render_template('excuses.html', excuses=excuses)
