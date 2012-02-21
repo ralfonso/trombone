@@ -226,7 +226,7 @@ var TROMBONE = {
   				});
   			}
   		}
-		
+
   		$('#reason').submit( submitForm );
         updateTopScores();
     },
@@ -245,14 +245,12 @@ var TROMBONE = {
   },
 
 
-/*- EXCUSES
-----------------------------------------------------------------------*/
+  /*- EXCUSES
+  ----------------------------------------------------------------------*/
   excuse: {
     init: function () {
       var form = $('#excuses');
-	  
-	  console.log(form);
-	  
+
         function validation(form) {
             var valid = true;
 
@@ -290,10 +288,11 @@ var TROMBONE = {
             } 
         }
         $('#excuses').submit( submitForm );	  
-    } 
-    //addExcuse: function(e) {
-     // $('#excuses').load('/api/excuse/list/' + demerit_id + '?as_html=true');
-    //}
+    }, 
+    addExcuse: function(e) {
+      $('#excuses').load('/api/excuse/list/' + demerit_id + '?as_html=true');
+    }
+    
   }
 
 }; /* end of TROMBONE */ 
