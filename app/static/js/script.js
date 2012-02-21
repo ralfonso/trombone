@@ -177,8 +177,8 @@ var TROMBONE = {
       function validation(form) {
     		var valid = true;
 
-  			// check if required fields are blank
-  			$(form).find('select.required').each( function (i, el) {
+  			//  check if required fields are blank
+  			$(form).find('input.required').each( function (i, el) {
   				if (!el.value) {
 						valid = false;
 						$(el).addClass('error');
@@ -253,6 +253,15 @@ var TROMBONE = {
 
         function validation(form) {
             var valid = true;
+            
+            $(form).find('input.required').each ( function (i, el) {
+                if (!el.value){
+                    valid = false;
+                    $(el).addClass('error');
+                } else {
+                    $(el).removeClass('error');    
+                }    
+            });
 
   		    return valid;
         }
@@ -260,11 +269,11 @@ var TROMBONE = {
         function submitForm(e) {  
           var form = $(this); 
                 
-          e.preventDefault();
+            e.preventDefault();
         
             if (validation(form)) {
-                var form_data = form.serialize();
-            return;
+            var form_data = form.serialize();
+                return;
 
             $.ajax({
                 url: form.attr('action'),
@@ -276,8 +285,8 @@ var TROMBONE = {
                         $('#excuses').load('/api/excuse/list/' + demerit_id + '?as_html=true');
 				    }
 				    else { 
-                        var message = $('#message');
-                        message.text(data.message);
+                 var message = $('#message');
+                 message.text(data.message);
 				    }
 			     },
 			     error: function (error) {
@@ -290,7 +299,8 @@ var TROMBONE = {
         $('#excuses').submit( submitForm );	  
     }, 
     addExcuse: function(e) {
-      $('#excuses').load('/api/excuse/list/' + demerit_id + '?as_html=true');
+        var demerit_id = e.target.getAttribute('data-excuse-to_demerit_id');
+        $('#excuse').load('/api/excuse/list/' + demerit_id + '?as_html=true');
     }
     
   }

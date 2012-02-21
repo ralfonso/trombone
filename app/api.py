@@ -117,9 +117,6 @@ def demerit_list(slug):
 def excuse_create():
     excuse = request.form.get('excuse', None)
     demerit_id = request.form.get('demerit_id', True)
-
-   	#demerit = Demerit.query.filter(Demerit.id==demerit_id).first()
-    #demerit = Demerit.
     #
     #Use the demerit_id as the new Excuses reference
     
@@ -141,7 +138,7 @@ def excuse_create():
     #commit that shit
     current_app.db.session.commit()
     # print excuse 
-    return render_json(success=True, excuse=to_demerit.to_dict())
+    return render_json(success=True, excuse=newExcuse.to_dict())
 
 
 @blueprint.route('/excuse/list/<string:id>')
@@ -150,8 +147,8 @@ def excuse_list(id):
     demerit = Demerit.query.filter(Demerit.id==id).first()
     has_excuse = demerit.has_excuse
     print "******************()(*)(*)*"
-    print has_excuse
-    if demerit:
+    print as_html
+    if as_html:
         excuses = [e.to_dict() for e in Excuse.query.filter(Excuse.to_demerit_id==demerit.id)]
     else:
         excuses = []
