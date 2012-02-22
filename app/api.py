@@ -140,23 +140,27 @@ def excuse_create():
     # print excuse 
     return render_json(success=True, excuse=newExcuse.to_dict())
 
-
 @blueprint.route('/excuse/list/<string:id>')
 def excuse_list(id):
     as_html = request.values.get('as_html', False)
     demerit = Demerit.query.filter(Demerit.id==id).first()
     has_excuse = demerit.has_excuse
     print "******************()(*)(*)*"
+    print demerit.id
     print as_html
+    
     if as_html:
         excuses = [e.to_dict() for e in Excuse.query.filter(Excuse.to_demerit_id==demerit.id)]
     else:
         excuses = []
+        print "XXXXXX ELSE IS FIRINGXXXXX"
+    
     print "**********@*@*@*@**********"
     print excuses
-
+    
     if has_excuse:
         return render_template('excuses.html', excuses=excuses)
     else:
         return render_template('excuse.html', excuses=excuses, demerit=demerit)
-	    
+	
+    
