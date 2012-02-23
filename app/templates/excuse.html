@@ -1,16 +1,16 @@
 <div id="form-container-2">
-	<form action="/api/excuse/create" method="POST" id="excuses">
 	<div id="excuse-container">
+	<form action="/api/excuse/create" method="POST" id="excuseForm">
 	<!--<span>{{ demerit.id }}</span>-->
 		<input type="hidden" name="demerit_id" value="{{ demerit.id }}" />
 		<div class="row">
-			<input type="text" name="excuse" class="excuse" />
+			<input type="text" name="excuse" class="required" />
 		</div>
 		<div class="row">
 			<button type="submit" id="excuse">EXCUSE</button>
 		</div>
 		<div id="excuses"></div>
-	</div>
 	</form>
+	</div>
 </div>
  
