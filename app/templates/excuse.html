@@ -4,13 +4,15 @@
 	<!--<span>{{ demerit.id }}</span>-->
 		<input type="hidden" name="demerit_id" value="{{ demerit.id }}" />
 		<div class="row">
-			<input type="text" name="excuse" class="required" />
+			<input type="text" name="excuse" class="required" id="note"/>
 		</div>
 		<div class="row">
-			<button type="submit" id="excuse">EXCUSE</button>
+			<button type="submit" id="excuse" class="submit">EXCUSE</button>
 		</div>
-		<div id="excuses"></div>
+		<div id="excuses">
+			<span class="error" style="display:none"> Please enter valid data </span>
+			<span class="success" style="display:none"> Success! </span>
+		</div>
 	</form>
 	</div>
 </div>
- 

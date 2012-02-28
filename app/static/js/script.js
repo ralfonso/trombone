@@ -130,7 +130,7 @@ var TROMBONE = {
       		var to_user = $('#to-user');
       		var form = $('#reason');
       
-      		console.log(form);
+      		//console.log(form);
 
       		$.ajax({
         		url:  '/api/user/list',
@@ -139,7 +139,7 @@ var TROMBONE = {
         		data: form.serialize(),
         		success: function (data, status) {
             		$.each(data.users, function(index, user) {
-                	console.log(user);
+                	//console.log(user);
                 	var option = $('<option/>');
                 	option.attr('value', user.slug);
                 	option.text(user.first_name + ' ' + user.last_name);
@@ -196,6 +196,9 @@ var TROMBONE = {
 
   				if (validation(form)) {
             		var form_data = form.serialize();
+            		
+            		console.log(form_data);
+            		
             		if ($('#to-user').val() == '')
               		return;
 
@@ -237,10 +240,12 @@ var TROMBONE = {
     
     	/* when click on demerit, show excuse or ze form */
   		openDemeritForm: function(demerit_id) {
-   	  		$('#demerit-' + demerit_id).load('/api/excuse/list/' + demerit_id + '?as_html=true'/*, function (){ toggle }*/); 
-   	  	TROMBONE.excuse.init();  	 
+   	  		$('#demerit-' + demerit_id).load('/api/excuse/list/' + demerit_id + '?as_html=true', function (){
+     	  	    TROMBONE.excuse.init();  	 
+    	  		console.log('opening demerit form') 
+ 			});
    		}
-   	
+   		
   	},
 
 
@@ -248,66 +253,38 @@ var TROMBONE = {
   ----------------------------------------------------------------------*/
   	excuse: {
     	init: function () {
-      		var form = $('#excuseForm');
-      		console.log('we are in excuse init!');
-
-        	function validation(form) {
-            	var valid = true;
-            
-            	$(form).find('input.required').each ( function (i, el) {
-                	if (!el.value){
-                    	valid = false;
-                    	$(el).addClass('error');
-                	} else {
-                    	$(el).removeClass('error');    
-               	 	}    
-            	});
-
-  		    	return valid;
-        	}
-      
-        	function submitForm(e) {  
-          		var form = $(this); 
-                
-            	e.preventDefault();
-        
-            	if (validation(form)) {
-            		var form_data = form.serialize();
-                
-              		$.ajax({
-                		url: form.attr('action'),
-                		type: 'POST',
-                		data: form_data,
-                		success: function (data, status) {
-                    		if ( data.success ) {
-                      			$('input[name=excuse]').val('');
-                	  			var demerit_id = $('input[name=demerit_id]').val('');
-                	  			console.log(demerit_id);
-                	  			$('#excuses').load('/api/excuse/list/' + demerit_id + '?as_html=true');
-				    		}
-				    		else { 
-                 				var message = $('#message');
-                 				message.text(data.message);
-				    		}
-			     		},
-			     		error: function (error) {
-			     		},
-			     		complete: function () {
-			     		}
-              		});
-            	} 
-        	}
-        	$('#excuseForm').submit( submitForm );	  
-    	}, 
-    	addExcuse: function(e) {
-    		var demerit_id = $('input[name=demerit_id]').val('');
-    		//var demerit_id = data.demerit.id
-    		console.log(demerit_id);
-        	$('#excuses').load('/api/excuse/list/' + demerit_id + '?as_html=true');
-    	}
-    
+		    console.log('what the hell mother fucker fuck you');
+			function submitForm(e) {
+				e.preventDefault();
+			    console.log('shit tits');
+		  		var excuse = $("#note").val();
+			    console.log(excuse);
+			    var form = $('#excuseForm');
+			    console.log(form)
+			   	var dataString = 'excuse' + excuse;
+			    var route = form.attr('action');
+				 
+			    if(excuse=='')
+			    {
+			    	console.log('excuse is blank?');
+			        $('.success').fadeOut(200).hide();
+			        $('.error').fadeOut(200).show();
+			    }else{
+			        $.ajax({
+			        type: "POST",
+			        url: route,
+			        data: dataString,
+			        success: function(){
+			            $('.success').fadeIn(200).show();
+			           	$('.error').fadeOut(200).hide();}
+			        });
+			    }
+			    return false;     
+			}
+			console.log($('#excuseForm'));
+  			$('#excuseForm').submit( submitForm );
+		}
   	}
-
 }; /* end of TROMBONE */ 
 
 
