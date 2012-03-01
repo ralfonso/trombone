@@ -271,9 +271,16 @@ var TROMBONE = {
 			        type: "POST",
 			        url: route,
 			        data: form_data,
-			        success: function(){
-			        	$('#excuseForm').remove();
-						$('#demerit-' + demerit_id).load('/api/excuse/list/' + demerit_id + '?as_html=true');}
+			        success: function(data, status){
+			        	if (data.success) {
+			        	$('#excuseForm', function(){ 
+			        		console.log('this is happening');
+			        		var demerit_id = data.excuse.to_demerit_id;
+			        		console.log(demerit_id);
+			        		$('#demerit-' + demerit_id).load('/api/excuse/list/' + demerit_id + '?as_html=true');
+			        	}).remove();
+			        	}
+			        }
 			        });
 			    }
 			    return false;     
@@ -281,9 +288,11 @@ var TROMBONE = {
 			console.log($('#excuseForm'));
   			$('#excuseForm').submit( submitForm );
     	},
-  		updateExcuse: function(demerit_id) {
+  		updateExcuse: function() {
+  			var demerit_id = data.excuse.to_demerit_id;
+			console.log(demerit_id);
 			$('#demerit-' + demerit_id).load('/api/excuse/list/' + demerit_id + '?as_html=true');
-		}	
+	 	}	
   	}
 }; /* end of TROMBONE */ 
 
