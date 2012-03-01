@@ -253,37 +253,37 @@ var TROMBONE = {
   ----------------------------------------------------------------------*/
   	excuse: {
     	init: function () {
-		    console.log('what the hell mother fucker fuck you');
 			function submitForm(e) {
+				
 				e.preventDefault();
-			    console.log('shit tits');
+				
 		  		var excuse = $("#note").val();
 			    console.log(excuse);
 			    var form = $('#excuseForm');
-			    console.log(form)
-			   	var dataString = 'excuse' + excuse;
+            	var form_data = form.serialize();
 			    var route = form.attr('action');
 				 
 			    if(excuse=='')
 			    {
 			    	console.log('excuse is blank?');
-			        $('.success').fadeOut(200).hide();
-			        $('.error').fadeOut(200).show();
 			    }else{
 			        $.ajax({
 			        type: "POST",
 			        url: route,
-			        data: dataString,
+			        data: form_data,
 			        success: function(){
-			            $('.success').fadeIn(200).show();
-			           	$('.error').fadeOut(200).hide();}
+			        	$('#excuseForm').remove();
+						$('#demerit-' + demerit_id).load('/api/excuse/list/' + demerit_id + '?as_html=true');}
 			        });
 			    }
 			    return false;     
 			}
 			console.log($('#excuseForm'));
   			$('#excuseForm').submit( submitForm );
-		}
+    	},
+  		updateExcuse: function(demerit_id) {
+			$('#demerit-' + demerit_id).load('/api/excuse/list/' + demerit_id + '?as_html=true');
+		}	
   	}
 }; /* end of TROMBONE */ 
 
