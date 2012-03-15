@@ -243,8 +243,8 @@ var TROMBONE = {
    	  		$('#demerit-' + demerit_id).load('/api/excuse/list/' + demerit_id + '?as_html=true', function (){
      	  	    TROMBONE.excuse.init();  	 
     	  		console.log('opening demerit form') 
- 			});
-   		}
+ 				/*$('.excuses').toggle();*/});
+   		}	
    		
   	},
 
@@ -253,16 +253,25 @@ var TROMBONE = {
   ----------------------------------------------------------------------*/
   	excuse: {
     	init: function () {
-			function submitForm(e) {
+    	
+    		$('#excuse-submit-button').click(function(e){
+    			e.preventDefault();
 				
-				e.preventDefault();
+    			var form = $(this).parents('form:first');
+    			submitForm();
+    		});
+    		
+			function submitForm() {
+				
+				//e.preventDefault();
 				
 		  		var excuse = $("#note").val();
 			    console.log(excuse);
 			    var form = $('#excuseForm');
+			    console.log(form);
             	var form_data = form.serialize();
 			    var route = form.attr('action');
-				 
+
 			    if(excuse=='')
 			    {
 			    	console.log('excuse is blank?');
