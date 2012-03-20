@@ -241,7 +241,7 @@ var TROMBONE = {
     	/* when click on demerit, show excuse or ze form */
   		openDemeritForm: function(demerit_id) {
    	  		$('#demerit-' + demerit_id).load('/api/excuse/list/' + demerit_id + '?as_html=true', function (){
-     	  	    TROMBONE.excuse.init();  	 
+     	  	    TROMBONE.excuse.init(demerit_id);  	 
     	  		console.log('opening demerit form') 
  				/*$('.excuses').toggle();*/});
    		}	
@@ -252,12 +252,13 @@ var TROMBONE = {
   /*- EXCUSES
   ----------------------------------------------------------------------*/
   	excuse: {
-    	init: function () {
+    	init: function (demerit_id) {
     	
-    		$('#excuse-submit-button').click(function(e){
+    		$('#excuse-submit-button-' + demerit_id).click(function(e){
     			e.preventDefault();
 				
     			var form = $(this).parents('form:first');
+    			//alert('this happened');
     			submitForm();
     		});
     		
@@ -267,7 +268,7 @@ var TROMBONE = {
 				
 		  		var excuse = $("#note").val();
 			    console.log(excuse);
-			    var form = $('#excuseForm');
+			    var form = $('#excuseForm-' + demerit_id);
 			    console.log(form);
             	var form_data = form.serialize();
 			    var route = form.attr('action');
@@ -282,9 +283,9 @@ var TROMBONE = {
 			        data: form_data,
 			        success: function(data, status){
 			        	if (data.success) {
-			        	$('#excuseForm', function(){ 
+			        	$('#excuseForm-' + demerit_id, function(){ 
 			        		console.log('this is happening');
-			        		var demerit_id = data.excuse.to_demerit_id;
+			        		//var demerit_id = data.excuse.to_demerit_id;
 			        		console.log(demerit_id);
 			        		$('#demerit-' + demerit_id).load('/api/excuse/list/' + demerit_id + '?as_html=true');
 			        	}).remove();
@@ -294,8 +295,8 @@ var TROMBONE = {
 			    }
 			    return false;     
 			}
-			console.log($('#excuseForm'));
-  			$('#excuseForm').submit( submitForm );
+			console.log($('#excuseForm-' + demerit_id));
+  			$('#excuseForm-' + demerit_id).submit( submitForm );
     	},
   		updateExcuse: function() {
   			var demerit_id = data.excuse.to_demerit_id;
